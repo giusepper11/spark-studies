@@ -176,3 +176,4 @@ cython_debug/
 
 # Logs
 docker/logs/*
+!docker/logs/.gitkeep

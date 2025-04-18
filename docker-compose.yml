@@ -96,3 +96,29 @@ services:
     depends_on:
       - spark-master
 
+  # Spark History Server
+  spark-history:
+    container_name: spark-history-server
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.history
+    environment:
+      - SPARK_HISTORY_UI_PORT=18080
+      - SPARK_DAEMON_MEMORY=5g
+      - SPARK_HISTORY_RETAINEDAPPLICATIONS=100
+      - SPARK_HISTORY_UI_MAXAPPLICATIONS=50
+      - SPARK_HISTORY_STORE_MAXDISKUSAGE=20g
+      - SPARK_HISTORY_FS_LOG_DIRECTORY=/opt/bitnami/spark/logs/events
+      - SPARK_HISTORY_OPTS=-Dspark.history.fs.logDirectory=/opt/bitnami/spark/logs/events
+      - SPARK_LOG_CONF=/opt/bitnami/spark/conf/log4j2.properties
+    ports:
+      - 18080:18080
+      - 4040:4040
+    volumes:
+      - ${APP_LOG_PATH}:/opt/bitnami/spark/logs/events
+      - ${APP_METRICS_PATH}:/opt/bitnami/spark/metrics
+    depends_on:
+      - spark-master
+      - spark-worker-1
+      - spark-worker-2
+      - spark-worker-3
