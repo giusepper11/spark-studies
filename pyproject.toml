@@ -1,0 +1,28 @@
+[project]
+name = "spark-studies"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Giuseppe Rosa",email = "giusepper11@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyspark (>=3.5.5,<4.0.0)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "pyarrow (>=19.0.1,<20.0.0)",
+    "sparkmeasure (>=0.24.0,<0.25.0)",
+    "datalake (>=2.5.8,<3.0.0)",
+    "delta-spark (>=3.3.0,<4.0.0)"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
