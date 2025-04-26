@@ -8,7 +8,7 @@ SPARK_SUBMIT_IMAGE=spark-master
 
 # Start Docker Compose services
 up:
-	@docker compose -f $(DOCKER_COMPOSE_FILE) up --build
+	@docker compose -f $(DOCKER_COMPOSE_FILE) up -d --build
 
 # Stop Docker Compose services
 down:
