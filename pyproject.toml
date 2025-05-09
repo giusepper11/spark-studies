@@ -6,7 +6,7 @@ authors = [
     {name = "Giuseppe Rosa",email = "giusepper11@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11,<=3.12"
 dependencies = [
     "pyspark (>=3.5.5,<4.0.0)",
     "pandas (>=2.2.3,<3.0.0)",
