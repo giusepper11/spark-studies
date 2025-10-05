@@ -1,0 +1,66 @@
+services:
+  spark-master:
+    build: .
+    container_name: spark-master
+    hostname: spark-master
+    command: ["master"]
+    ports:
+      - "8080:8080"   # Master UI
+      - "7077:7077"   # Spark master port
+    volumes:
+      - spark-events:/opt/spark/spark-events
+      - ./workspace:/workspace
+    networks:
+      - spark-net
+
+  spark-worker-1:
+    build: .
+    container_name: spark-worker-1
+    hostname: spark-worker-1
+    command: ["worker"]
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_MASTER_URL: spark://spark-master:7077
+    volumes:
+      - spark-events:/opt/spark/spark-events
+      - ./workspace:/workspace
+    networks:
+      - spark-net
+
+  spark-worker-2:
+    build: .
+    container_name: spark-worker-2
+    hostname: spark-worker-2
+    command: ["worker"]
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_MASTER_URL: spark://spark-master:7077
+    volumes:
+      - spark-events:/opt/spark/spark-events
+      - ./workspace:/workspace
+    networks:
+      - spark-net
+
+  spark-history:
+    build: .
+    container_name: spark-history
+    hostname: spark-history
+    command: ["history"]
+    depends_on:
+      - spark-master
+    ports:
+      - "18080:18080"
+    volumes:
+      - spark-events:/opt/spark/spark-events
+      - ./workspace:/workspace
+    networks:
+      - spark-net
+
+volumes:
+  spark-events:
+
+networks:
+  spark-net:
+    driver: bridge
